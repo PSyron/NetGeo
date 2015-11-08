@@ -18,11 +18,7 @@ namespace NetGeo
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            ConnectionUtils.GetInstance().UserDetailsFromGeoApi();
             Application.Run(new Form1());
-            
         }
-
-     
     }
 }

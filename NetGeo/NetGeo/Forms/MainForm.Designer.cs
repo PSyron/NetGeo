@@ -30,6 +30,31 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.lDistanceIP = new System.Windows.Forms.Label();
+            this.tbDistanceIP = new System.Windows.Forms.TextBox();
+            this.lRTT = new System.Windows.Forms.Label();
+            this.tbRTT = new System.Windows.Forms.TextBox();
+            this.lDistanceGeo = new System.Windows.Forms.Label();
+            this.tbDistanceGeo = new System.Windows.Forms.TextBox();
+            this.tbStatusR = new System.Windows.Forms.TextBox();
+            this.tbCountryR = new System.Windows.Forms.TextBox();
+            this.tbRegionNameR = new System.Windows.Forms.TextBox();
+            this.tbCityR = new System.Windows.Forms.TextBox();
+            this.tbZipCodeR = new System.Windows.Forms.TextBox();
+            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.tbLonR = new System.Windows.Forms.TextBox();
+            this.tbTimezone = new System.Windows.Forms.TextBox();
+            this.tbIspNameR = new System.Windows.Forms.TextBox();
+            this.tbOrganizationNameR = new System.Windows.Forms.TextBox();
+            this.tbAsNumberR = new System.Windows.Forms.TextBox();
+            this.gbParameters = new System.Windows.Forms.GroupBox();
+            this.bCheckR = new System.Windows.Forms.Button();
+            this.tbIPR = new System.Windows.Forms.TextBox();
+            this.bCheckL = new System.Windows.Forms.Button();
+            this.tbIPL = new System.Windows.Forms.TextBox();
+            this.lIP = new System.Windows.Forms.Label();
             this.lStatus = new System.Windows.Forms.Label();
             this.lCountry = new System.Windows.Forms.Label();
             this.lCity = new System.Windows.Forms.Label();
@@ -53,35 +78,10 @@
             this.tbOrganizationNameL = new System.Windows.Forms.TextBox();
             this.tbAsNumberL = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.gbParameters = new System.Windows.Forms.GroupBox();
-            this.tbIPL = new System.Windows.Forms.TextBox();
-            this.lIP = new System.Windows.Forms.Label();
-            this.bCheckL = new System.Windows.Forms.Button();
-            this.bCheckR = new System.Windows.Forms.Button();
-            this.tbIPR = new System.Windows.Forms.TextBox();
-            this.tbStatusR = new System.Windows.Forms.TextBox();
-            this.tbCountryR = new System.Windows.Forms.TextBox();
-            this.tbRegionNameR = new System.Windows.Forms.TextBox();
-            this.tbCityR = new System.Windows.Forms.TextBox();
-            this.tbZipCodeR = new System.Windows.Forms.TextBox();
-            this.textBox7 = new System.Windows.Forms.TextBox();
-            this.tbLonR = new System.Windows.Forms.TextBox();
-            this.tbTimezone = new System.Windows.Forms.TextBox();
-            this.tbIspNameR = new System.Windows.Forms.TextBox();
-            this.tbOrganizationNameR = new System.Windows.Forms.TextBox();
-            this.tbAsNumberR = new System.Windows.Forms.TextBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.lRTT = new System.Windows.Forms.Label();
-            this.tbRTT = new System.Windows.Forms.TextBox();
-            this.tbDistanceGeo = new System.Windows.Forms.TextBox();
-            this.lDistanceGeo = new System.Windows.Forms.Label();
-            this.lDistanceIP = new System.Windows.Forms.Label();
-            this.tbDistanceIP = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.gbParameters.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.gbParameters.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -138,6 +138,237 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Sprawdź IP";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Controls.Add(this.lDistanceIP);
+            this.groupBox1.Controls.Add(this.tbDistanceIP);
+            this.groupBox1.Controls.Add(this.lRTT);
+            this.groupBox1.Controls.Add(this.tbRTT);
+            this.groupBox1.Controls.Add(this.lDistanceGeo);
+            this.groupBox1.Controls.Add(this.tbDistanceGeo);
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.groupBox1.Location = new System.Drawing.Point(7, 407);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(600, 117);
+            this.groupBox1.TabIndex = 36;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Wyniki";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(362, 38);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(160, 55);
+            this.button1.TabIndex = 28;
+            this.button1.Text = "Oblicz";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // lDistanceIP
+            // 
+            this.lDistanceIP.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lDistanceIP.Location = new System.Drawing.Point(10, 91);
+            this.lDistanceIP.Name = "lDistanceIP";
+            this.lDistanceIP.Size = new System.Drawing.Size(145, 17);
+            this.lDistanceIP.TabIndex = 26;
+            this.lDistanceIP.Text = "Długość scieżki IP:";
+            // 
+            // tbDistanceIP
+            // 
+            this.tbDistanceIP.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.tbDistanceIP.Location = new System.Drawing.Point(157, 88);
+            this.tbDistanceIP.Name = "tbDistanceIP";
+            this.tbDistanceIP.ReadOnly = true;
+            this.tbDistanceIP.Size = new System.Drawing.Size(160, 20);
+            this.tbDistanceIP.TabIndex = 27;
+            // 
+            // lRTT
+            // 
+            this.lRTT.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lRTT.Location = new System.Drawing.Point(10, 59);
+            this.lRTT.Name = "lRTT";
+            this.lRTT.Size = new System.Drawing.Size(145, 17);
+            this.lRTT.TabIndex = 24;
+            this.lRTT.Text = "RTT:";
+            // 
+            // tbRTT
+            // 
+            this.tbRTT.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.tbRTT.Location = new System.Drawing.Point(157, 56);
+            this.tbRTT.Name = "tbRTT";
+            this.tbRTT.ReadOnly = true;
+            this.tbRTT.Size = new System.Drawing.Size(160, 20);
+            this.tbRTT.TabIndex = 25;
+            // 
+            // lDistanceGeo
+            // 
+            this.lDistanceGeo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lDistanceGeo.Location = new System.Drawing.Point(6, 26);
+            this.lDistanceGeo.Name = "lDistanceGeo";
+            this.lDistanceGeo.Size = new System.Drawing.Size(145, 17);
+            this.lDistanceGeo.TabIndex = 22;
+            this.lDistanceGeo.Text = "Odległość między punktami:";
+            // 
+            // tbDistanceGeo
+            // 
+            this.tbDistanceGeo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.tbDistanceGeo.Location = new System.Drawing.Point(157, 23);
+            this.tbDistanceGeo.Name = "tbDistanceGeo";
+            this.tbDistanceGeo.ReadOnly = true;
+            this.tbDistanceGeo.Size = new System.Drawing.Size(160, 20);
+            this.tbDistanceGeo.TabIndex = 23;
+            // 
+            // tbStatusR
+            // 
+            this.tbStatusR.Location = new System.Drawing.Point(369, 14);
+            this.tbStatusR.Name = "tbStatusR";
+            this.tbStatusR.ReadOnly = true;
+            this.tbStatusR.Size = new System.Drawing.Size(160, 20);
+            this.tbStatusR.TabIndex = 25;
+            // 
+            // tbCountryR
+            // 
+            this.tbCountryR.Location = new System.Drawing.Point(369, 44);
+            this.tbCountryR.Name = "tbCountryR";
+            this.tbCountryR.ReadOnly = true;
+            this.tbCountryR.Size = new System.Drawing.Size(160, 20);
+            this.tbCountryR.TabIndex = 26;
+            // 
+            // tbRegionNameR
+            // 
+            this.tbRegionNameR.Location = new System.Drawing.Point(369, 74);
+            this.tbRegionNameR.Name = "tbRegionNameR";
+            this.tbRegionNameR.ReadOnly = true;
+            this.tbRegionNameR.Size = new System.Drawing.Size(160, 20);
+            this.tbRegionNameR.TabIndex = 27;
+            // 
+            // tbCityR
+            // 
+            this.tbCityR.Location = new System.Drawing.Point(369, 104);
+            this.tbCityR.Name = "tbCityR";
+            this.tbCityR.ReadOnly = true;
+            this.tbCityR.Size = new System.Drawing.Size(160, 20);
+            this.tbCityR.TabIndex = 28;
+            // 
+            // tbZipCodeR
+            // 
+            this.tbZipCodeR.Location = new System.Drawing.Point(369, 134);
+            this.tbZipCodeR.Name = "tbZipCodeR";
+            this.tbZipCodeR.ReadOnly = true;
+            this.tbZipCodeR.Size = new System.Drawing.Size(160, 20);
+            this.tbZipCodeR.TabIndex = 29;
+            // 
+            // textBox7
+            // 
+            this.textBox7.Location = new System.Drawing.Point(369, 164);
+            this.textBox7.Name = "textBox7";
+            this.textBox7.ReadOnly = true;
+            this.textBox7.Size = new System.Drawing.Size(160, 20);
+            this.textBox7.TabIndex = 30;
+            // 
+            // tbLonR
+            // 
+            this.tbLonR.Location = new System.Drawing.Point(369, 194);
+            this.tbLonR.Name = "tbLonR";
+            this.tbLonR.ReadOnly = true;
+            this.tbLonR.Size = new System.Drawing.Size(160, 20);
+            this.tbLonR.TabIndex = 31;
+            // 
+            // tbTimezone
+            // 
+            this.tbTimezone.Location = new System.Drawing.Point(369, 224);
+            this.tbTimezone.Name = "tbTimezone";
+            this.tbTimezone.ReadOnly = true;
+            this.tbTimezone.Size = new System.Drawing.Size(160, 20);
+            this.tbTimezone.TabIndex = 32;
+            // 
+            // tbIspNameR
+            // 
+            this.tbIspNameR.Location = new System.Drawing.Point(369, 254);
+            this.tbIspNameR.Name = "tbIspNameR";
+            this.tbIspNameR.ReadOnly = true;
+            this.tbIspNameR.Size = new System.Drawing.Size(160, 20);
+            this.tbIspNameR.TabIndex = 33;
+            // 
+            // tbOrganizationNameR
+            // 
+            this.tbOrganizationNameR.Location = new System.Drawing.Point(369, 284);
+            this.tbOrganizationNameR.Name = "tbOrganizationNameR";
+            this.tbOrganizationNameR.ReadOnly = true;
+            this.tbOrganizationNameR.Size = new System.Drawing.Size(160, 20);
+            this.tbOrganizationNameR.TabIndex = 34;
+            // 
+            // tbAsNumberR
+            // 
+            this.tbAsNumberR.Location = new System.Drawing.Point(369, 314);
+            this.tbAsNumberR.Name = "tbAsNumberR";
+            this.tbAsNumberR.ReadOnly = true;
+            this.tbAsNumberR.Size = new System.Drawing.Size(160, 20);
+            this.tbAsNumberR.TabIndex = 35;
+            // 
+            // gbParameters
+            // 
+            this.gbParameters.BackColor = System.Drawing.Color.Transparent;
+            this.gbParameters.Controls.Add(this.bCheckR);
+            this.gbParameters.Controls.Add(this.tbIPR);
+            this.gbParameters.Controls.Add(this.bCheckL);
+            this.gbParameters.Controls.Add(this.tbIPL);
+            this.gbParameters.Controls.Add(this.lIP);
+            this.gbParameters.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.gbParameters.Location = new System.Drawing.Point(8, 355);
+            this.gbParameters.Name = "gbParameters";
+            this.gbParameters.Size = new System.Drawing.Size(599, 46);
+            this.gbParameters.TabIndex = 24;
+            this.gbParameters.TabStop = false;
+            this.gbParameters.Text = "Parametry";
+            // 
+            // bCheckR
+            // 
+            this.bCheckR.Location = new System.Drawing.Point(527, 18);
+            this.bCheckR.Name = "bCheckR";
+            this.bCheckR.Size = new System.Drawing.Size(56, 21);
+            this.bCheckR.TabIndex = 28;
+            this.bCheckR.Text = "Sprawdź";
+            this.bCheckR.UseVisualStyleBackColor = true;
+            this.bCheckR.Click += new System.EventHandler(this.bCheckR_Click);
+            // 
+            // tbIPR
+            // 
+            this.tbIPR.Location = new System.Drawing.Point(361, 19);
+            this.tbIPR.Name = "tbIPR";
+            this.tbIPR.Size = new System.Drawing.Size(160, 20);
+            this.tbIPR.TabIndex = 27;
+            this.tbIPR.Text = "wprowadź IP 2";
+            this.tbIPR.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // bCheckL
+            // 
+            this.bCheckL.Location = new System.Drawing.Point(281, 18);
+            this.bCheckL.Name = "bCheckL";
+            this.bCheckL.Size = new System.Drawing.Size(56, 21);
+            this.bCheckL.TabIndex = 26;
+            this.bCheckL.Text = "Sprawdź";
+            this.bCheckL.UseVisualStyleBackColor = true;
+            this.bCheckL.Click += new System.EventHandler(this.bCheckL_Click);
+            // 
+            // tbIPL
+            // 
+            this.tbIPL.Location = new System.Drawing.Point(115, 19);
+            this.tbIPL.Name = "tbIPL";
+            this.tbIPL.Size = new System.Drawing.Size(160, 20);
+            this.tbIPL.TabIndex = 25;
+            this.tbIPL.Text = "wprowadź IP 1";
+            this.tbIPL.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // lIP
+            // 
+            this.lIP.AutoSize = true;
+            this.lIP.Location = new System.Drawing.Point(9, 19);
+            this.lIP.Name = "lIP";
+            this.lIP.Size = new System.Drawing.Size(20, 13);
+            this.lIP.TabIndex = 24;
+            this.lIP.Text = "IP:";
             // 
             // lStatus
             // 
@@ -321,239 +552,10 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(614, 416);
+            this.tabPage2.Size = new System.Drawing.Size(614, 532);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Badania";
             this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // gbParameters
-            // 
-            this.gbParameters.BackColor = System.Drawing.Color.Transparent;
-            this.gbParameters.Controls.Add(this.bCheckR);
-            this.gbParameters.Controls.Add(this.tbIPR);
-            this.gbParameters.Controls.Add(this.bCheckL);
-            this.gbParameters.Controls.Add(this.tbIPL);
-            this.gbParameters.Controls.Add(this.lIP);
-            this.gbParameters.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.gbParameters.Location = new System.Drawing.Point(8, 355);
-            this.gbParameters.Name = "gbParameters";
-            this.gbParameters.Size = new System.Drawing.Size(599, 46);
-            this.gbParameters.TabIndex = 24;
-            this.gbParameters.TabStop = false;
-            this.gbParameters.Text = "Parametry";
-            // 
-            // tbIPL
-            // 
-            this.tbIPL.Location = new System.Drawing.Point(115, 19);
-            this.tbIPL.Name = "tbIPL";
-            this.tbIPL.Size = new System.Drawing.Size(160, 20);
-            this.tbIPL.TabIndex = 25;
-            this.tbIPL.Text = "wprowadź IP 1";
-            this.tbIPL.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // lIP
-            // 
-            this.lIP.AutoSize = true;
-            this.lIP.Location = new System.Drawing.Point(9, 19);
-            this.lIP.Name = "lIP";
-            this.lIP.Size = new System.Drawing.Size(20, 13);
-            this.lIP.TabIndex = 24;
-            this.lIP.Text = "IP:";
-            // 
-            // bCheckL
-            // 
-            this.bCheckL.Location = new System.Drawing.Point(281, 18);
-            this.bCheckL.Name = "bCheckL";
-            this.bCheckL.Size = new System.Drawing.Size(56, 21);
-            this.bCheckL.TabIndex = 26;
-            this.bCheckL.Text = "Sprawdź";
-            this.bCheckL.UseVisualStyleBackColor = true;
-            // 
-            // bCheckR
-            // 
-            this.bCheckR.Location = new System.Drawing.Point(527, 18);
-            this.bCheckR.Name = "bCheckR";
-            this.bCheckR.Size = new System.Drawing.Size(56, 21);
-            this.bCheckR.TabIndex = 28;
-            this.bCheckR.Text = "Sprawdź";
-            this.bCheckR.UseVisualStyleBackColor = true;
-            // 
-            // tbIPR
-            // 
-            this.tbIPR.Location = new System.Drawing.Point(361, 19);
-            this.tbIPR.Name = "tbIPR";
-            this.tbIPR.Size = new System.Drawing.Size(160, 20);
-            this.tbIPR.TabIndex = 27;
-            this.tbIPR.Text = "wprowadź IP 2";
-            this.tbIPR.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // tbStatusR
-            // 
-            this.tbStatusR.Location = new System.Drawing.Point(369, 14);
-            this.tbStatusR.Name = "tbStatusR";
-            this.tbStatusR.ReadOnly = true;
-            this.tbStatusR.Size = new System.Drawing.Size(160, 20);
-            this.tbStatusR.TabIndex = 25;
-            // 
-            // tbCountryR
-            // 
-            this.tbCountryR.Location = new System.Drawing.Point(369, 44);
-            this.tbCountryR.Name = "tbCountryR";
-            this.tbCountryR.ReadOnly = true;
-            this.tbCountryR.Size = new System.Drawing.Size(160, 20);
-            this.tbCountryR.TabIndex = 26;
-            // 
-            // tbRegionNameR
-            // 
-            this.tbRegionNameR.Location = new System.Drawing.Point(369, 74);
-            this.tbRegionNameR.Name = "tbRegionNameR";
-            this.tbRegionNameR.ReadOnly = true;
-            this.tbRegionNameR.Size = new System.Drawing.Size(160, 20);
-            this.tbRegionNameR.TabIndex = 27;
-            // 
-            // tbCityR
-            // 
-            this.tbCityR.Location = new System.Drawing.Point(369, 104);
-            this.tbCityR.Name = "tbCityR";
-            this.tbCityR.ReadOnly = true;
-            this.tbCityR.Size = new System.Drawing.Size(160, 20);
-            this.tbCityR.TabIndex = 28;
-            // 
-            // tbZipCodeR
-            // 
-            this.tbZipCodeR.Location = new System.Drawing.Point(369, 134);
-            this.tbZipCodeR.Name = "tbZipCodeR";
-            this.tbZipCodeR.ReadOnly = true;
-            this.tbZipCodeR.Size = new System.Drawing.Size(160, 20);
-            this.tbZipCodeR.TabIndex = 29;
-            // 
-            // textBox7
-            // 
-            this.textBox7.Location = new System.Drawing.Point(369, 164);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.ReadOnly = true;
-            this.textBox7.Size = new System.Drawing.Size(160, 20);
-            this.textBox7.TabIndex = 30;
-            // 
-            // tbLonR
-            // 
-            this.tbLonR.Location = new System.Drawing.Point(369, 194);
-            this.tbLonR.Name = "tbLonR";
-            this.tbLonR.ReadOnly = true;
-            this.tbLonR.Size = new System.Drawing.Size(160, 20);
-            this.tbLonR.TabIndex = 31;
-            // 
-            // tbTimezone
-            // 
-            this.tbTimezone.Location = new System.Drawing.Point(369, 224);
-            this.tbTimezone.Name = "tbTimezone";
-            this.tbTimezone.ReadOnly = true;
-            this.tbTimezone.Size = new System.Drawing.Size(160, 20);
-            this.tbTimezone.TabIndex = 32;
-            // 
-            // tbIspNameR
-            // 
-            this.tbIspNameR.Location = new System.Drawing.Point(369, 254);
-            this.tbIspNameR.Name = "tbIspNameR";
-            this.tbIspNameR.ReadOnly = true;
-            this.tbIspNameR.Size = new System.Drawing.Size(160, 20);
-            this.tbIspNameR.TabIndex = 33;
-            // 
-            // tbOrganizationNameR
-            // 
-            this.tbOrganizationNameR.Location = new System.Drawing.Point(369, 284);
-            this.tbOrganizationNameR.Name = "tbOrganizationNameR";
-            this.tbOrganizationNameR.ReadOnly = true;
-            this.tbOrganizationNameR.Size = new System.Drawing.Size(160, 20);
-            this.tbOrganizationNameR.TabIndex = 34;
-            // 
-            // tbAsNumberR
-            // 
-            this.tbAsNumberR.Location = new System.Drawing.Point(369, 314);
-            this.tbAsNumberR.Name = "tbAsNumberR";
-            this.tbAsNumberR.ReadOnly = true;
-            this.tbAsNumberR.Size = new System.Drawing.Size(160, 20);
-            this.tbAsNumberR.TabIndex = 35;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.button1);
-            this.groupBox1.Controls.Add(this.lDistanceIP);
-            this.groupBox1.Controls.Add(this.tbDistanceIP);
-            this.groupBox1.Controls.Add(this.lRTT);
-            this.groupBox1.Controls.Add(this.tbRTT);
-            this.groupBox1.Controls.Add(this.lDistanceGeo);
-            this.groupBox1.Controls.Add(this.tbDistanceGeo);
-            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.groupBox1.Location = new System.Drawing.Point(7, 407);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(600, 117);
-            this.groupBox1.TabIndex = 36;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Wyniki";
-            // 
-            // lRTT
-            // 
-            this.lRTT.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lRTT.Location = new System.Drawing.Point(10, 59);
-            this.lRTT.Name = "lRTT";
-            this.lRTT.Size = new System.Drawing.Size(145, 17);
-            this.lRTT.TabIndex = 24;
-            this.lRTT.Text = "RTT:";
-            // 
-            // tbRTT
-            // 
-            this.tbRTT.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.tbRTT.Location = new System.Drawing.Point(157, 56);
-            this.tbRTT.Name = "tbRTT";
-            this.tbRTT.ReadOnly = true;
-            this.tbRTT.Size = new System.Drawing.Size(160, 20);
-            this.tbRTT.TabIndex = 25;
-            // 
-            // tbDistanceGeo
-            // 
-            this.tbDistanceGeo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.tbDistanceGeo.Location = new System.Drawing.Point(157, 23);
-            this.tbDistanceGeo.Name = "tbDistanceGeo";
-            this.tbDistanceGeo.ReadOnly = true;
-            this.tbDistanceGeo.Size = new System.Drawing.Size(160, 20);
-            this.tbDistanceGeo.TabIndex = 23;
-            // 
-            // lDistanceGeo
-            // 
-            this.lDistanceGeo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lDistanceGeo.Location = new System.Drawing.Point(6, 26);
-            this.lDistanceGeo.Name = "lDistanceGeo";
-            this.lDistanceGeo.Size = new System.Drawing.Size(145, 17);
-            this.lDistanceGeo.TabIndex = 22;
-            this.lDistanceGeo.Text = "Odległość między punktami:";
-            // 
-            // lDistanceIP
-            // 
-            this.lDistanceIP.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lDistanceIP.Location = new System.Drawing.Point(10, 91);
-            this.lDistanceIP.Name = "lDistanceIP";
-            this.lDistanceIP.Size = new System.Drawing.Size(145, 17);
-            this.lDistanceIP.TabIndex = 26;
-            this.lDistanceIP.Text = "Długość scieżki IP:";
-            // 
-            // tbDistanceIP
-            // 
-            this.tbDistanceIP.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.tbDistanceIP.Location = new System.Drawing.Point(157, 88);
-            this.tbDistanceIP.Name = "tbDistanceIP";
-            this.tbDistanceIP.ReadOnly = true;
-            this.tbDistanceIP.Size = new System.Drawing.Size(160, 20);
-            this.tbDistanceIP.TabIndex = 27;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(362, 38);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(160, 55);
-            this.button1.TabIndex = 28;
-            this.button1.Text = "Oblicz";
-            this.button1.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -567,10 +569,10 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
-            this.gbParameters.ResumeLayout(false);
-            this.gbParameters.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.gbParameters.ResumeLayout(false);
+            this.gbParameters.PerformLayout();
             this.ResumeLayout(false);
 
         }
