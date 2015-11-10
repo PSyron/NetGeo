@@ -20,7 +20,8 @@ namespace NetGeo
         public Form1()
         {
             InitializeComponent();
-            InitLeftValues(ConnectionUtils.GetInstance().UserDetailsFromGeoApi());
+            domainLeft = ConnectionUtils.GetInstance().UserDetailsFromGeoApi();
+            InitLeftValues(domainLeft);
         }
 
         private void InitLeftValues(GeoApiResponse geoApiResponse)
@@ -38,6 +39,9 @@ namespace NetGeo
                 tbIspNameL.Text = geoApiResponse.isp;
                 tbOrganizationNameL.Text = geoApiResponse.org;
                 tbAsNumberL.Text = geoApiResponse.@as;
+
+                FillDistanceBetweenDomains();
+                FillRTTAndHopCountLeft(domainLeft);
             }
         }
 
@@ -52,10 +56,13 @@ namespace NetGeo
                 tbZipCodeR.Text = geoApiResponse.zip;
                 textBox7.Text = "" + geoApiResponse.lat;
                 tbLonR.Text = "" + geoApiResponse.lon;
-                tbTimezone.Text = geoApiResponse.timezone;
+                tbTimezoneR.Text = geoApiResponse.timezone;
                 tbIspNameR.Text = geoApiResponse.isp;
                 tbOrganizationNameR.Text = geoApiResponse.org;
                 tbAsNumberR.Text = geoApiResponse.@as;
+
+                FillDistanceBetweenDomains();
+                FillRTTAndHopCountRight(domainRight);
             }
         }
 
@@ -63,16 +70,12 @@ namespace NetGeo
         {
             domainLeft = ConnectionUtils.GetInstance().HostDetailsFromGeoApi(tbIPL.Text);
             InitLeftValues(domainLeft);
-            FillDistanceBetweenDomains();
-            FillRTTAndHopCount(domainLeft);
         }
 
         private void bCheckR_Click(object sender, EventArgs e)
         {
             domainRight = ConnectionUtils.GetInstance().HostDetailsFromGeoApi(tbIPR.Text);
-            InitRightValues(domainRight);
-            FillDistanceBetweenDomains();
-            FillRTTAndHopCount(domainRight);
+            InitRightValues(domainRight);           
         }
 
         private void FillDistanceBetweenDomains()
@@ -81,12 +84,21 @@ namespace NetGeo
                 tbDistanceGeo.Text = ConnectionUtils.GetInstance().GetDistanceBetweenGeographicPoints(domainLeft.lat, domainLeft.lon, domainRight.lat, domainRight.lon) + " km";
         }
 
-        private void FillRTTAndHopCount(GeoApiResponse geoApiResponse)
+        private void FillRTTAndHopCountLeft(GeoApiResponse geoApiResponse)
         {
             if (geoApiResponse.status.Equals(SUCCESS))
             {
-                tbRTT.Text = ConnectionUtils.GetInstance().PingHost(IPAddress.Parse(geoApiResponse.query)).RoundtripTime + "";
-                tbDistanceIP.Text = ConnectionUtils.GetInstance().PerformPathping(IPAddress.Parse(geoApiResponse.query)).Length + "";
+                tbRTTL.Text = ConnectionUtils.GetInstance().PingHost(IPAddress.Parse(geoApiResponse.query)).RoundtripTime + "";
+                tbDistanceIPL.Text = ConnectionUtils.GetInstance().PerformPathping(IPAddress.Parse(geoApiResponse.query)).Length + "";
+            }
+        }
+
+        private void FillRTTAndHopCountRight(GeoApiResponse geoApiResponse)
+        {
+            if (geoApiResponse.status.Equals(SUCCESS))
+            {
+                tbRTTR.Text = ConnectionUtils.GetInstance().PingHost(IPAddress.Parse(geoApiResponse.query)).RoundtripTime + "";
+                tbDistanceIPR.Text = ConnectionUtils.GetInstance().PerformPathping(IPAddress.Parse(geoApiResponse.query)).Length + "";
             }
         }
     }
