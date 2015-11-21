@@ -41,7 +41,12 @@ namespace NetGeo
             PingReply prResult;
             for (int iC1 = 1; iC1 < iHopcount; iC1++)
             {
-                prResult = myPing.Send(ipaTarget, iTimeout, new byte[10], new PingOptions(iC1, false)); //ttl zwiekszany
+                try {
+                    prResult = myPing.Send(ipaTarget, iTimeout, new byte[10], new PingOptions(iC1, false)); //ttl zwiekszany
+                } catch (PingException e)
+                {
+                    return null;
+                }
                 if (prResult.Status == IPStatus.Success) //osiagnieto hosta przy danym ttl 
                 {
                     iC1 = iHopcount; // sprawdzic czy nie wystarcyz po prostu dac breaka
@@ -58,20 +63,32 @@ namespace NetGeo
         }
 
         //posiada RTT & IPStatus
-        public PingReply PingHost(IPAddress host, int iTimeout = 500, int iTTL = 20)
+        public PingReply PingHost(IPAddress host, bool minimumBuffer = true)
         {
+            int iTimeout = 500;
+            int iTTL = 20;
             Ping pingSender = new Ping();
             PingReply reply = null;
             PingOptions options = new PingOptions(iTTL, true);
             //options.DontFragment = true;
 
             // Create a buffer of 32 bytes of data to be transmitted.
-            string data = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+            string data;
+            if (minimumBuffer)
+            {
+                data = "aaaaaaaa";//8 bytes
+            }
+            else
+            {
+                //512 bytes
+                data = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+                for (int i = 0; i < 8; i++)//data 64kB
+                    data += data;
+            }
             byte[] buffer = Encoding.ASCII.GetBytes(data);
-            int timeout = 120;
             try
             {
-                reply = pingSender.Send(host, timeout, buffer, options);
+                reply = pingSender.Send(host, iTimeout, buffer, options);
                 if (reply.Status == IPStatus.Success)
                 {
                     //Ping was successful

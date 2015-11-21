@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using CsvHelper;
 using System.IO;
+using System.Net.NetworkInformation;
 
 namespace NetGeo
 {
@@ -130,6 +131,105 @@ namespace NetGeo
             StreamReader reader = new StreamReader(inCsvPath);
             csv = new CsvReader(reader);
             csvRecords = csv.GetRecords<CsvStructure>().ToList();
+            MakeResearch(csvRecords);
+        }
+
+
+        private void MakeResearch(List<CsvStructure> list)
+        {
+            ConnectionUtils utils = ConnectionUtils.GetInstance();
+            List<ResearchModel> reasearchResult = new List<ResearchModel>();
+            ResearchModel temp = new ResearchModel();
+            float distance = 0;
+            GeoApiResponse geoResponse;
+            PingReply tempReply;
+            GeoApiResponse userDetails = utils.UserDetailsFromGeoApi();
+            PingReply smallReply;
+            PingReply biggerReply;
+            PingReply[] ttl;
+            foreach (CsvStructure record in list)
+            {
+                //First find domain IP address
+                geoResponse = utils.HostDetailsFromGeoApi(record.URL);
+
+                if (geoResponse != null)
+                {
+                    //This will be same for all 10 results
+                    temp = new ResearchModel();
+                    temp.IPAdrress = geoResponse.query;
+                    temp.DomainName = record.URL;
+                    temp.Latitude = geoResponse.lat.ToString();
+                    temp.Longitude = geoResponse.lon.ToString();
+                    temp.DistanceTo = utils.GetDistanceBetweenGeographicPoints(userDetails.lat, userDetails.lon, geoResponse.lat, geoResponse.lon).ToString();
+                    try {
+                        ttl = utils.PerformPathping(IPAddress.Parse(geoResponse.query));
+                    }catch(System.FormatException e)
+                    {
+                        break;
+                    }
+                    if (ttl == null)
+                        temp.TTL = "error";
+                    else
+                    { temp.TTL = ttl.Length.ToString(); }
+
+                    for (int i = 0; i < 10; i++)//10 measures for each domain
+                    {
+                        smallReply = utils.PingHost(IPAddress.Parse(geoResponse.query), true);
+                        if (smallReply != null)
+                            temp.Time8B = smallReply.RoundtripTime.ToString();
+                        else
+                            temp.Time8B = "-1";
+
+                        biggerReply = utils.PingHost(IPAddress.Parse(geoResponse.query), false);
+                        if (biggerReply != null)
+                            temp.Time64kB = biggerReply.RoundtripTime.ToString();
+                        else
+                            temp.Time64kB = "-1";
+                        
+                        reasearchResult.Add(temp);
+                    }
+                }
+
+            }
+            writeToFile(reasearchResult);
+        }
+
+        private void writeToFile(List<ResearchModel> toWrite)
+        {
+            string pathDesktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            string filePath = pathDesktop + "\\mycsvfile.csv";
+
+            if (!File.Exists(filePath))
+            {
+                File.Create(filePath).Close();
+            }
+            string delimter = ";";
+            List<string[]> output = new List<string[]>();
+            output.Add(new string[] { "DomainName", "IPAddress", "Latitude", "Longitude", "DistanceTo", "TTL", "Time8B", "Time64kB", });
+        
+            //flexible part ... add as many object as you want based on your app logic
+            //output.Add(new string[] { "DomainName", temp });
+            //output.Add(new string[] { "IPAddress", "TEST4" });
+            //output.Add(new string[] { "Latitude", "TEST2" });
+            //output.Add(new string[] { "Longitude", "TEST4" });
+            //output.Add(new string[] { "DistanceTo", "TEST2" });
+            //output.Add(new string[] { "TTL", "TEST4" });
+            //output.Add(new string[] { "Time8B", "TEST2" });
+            //output.Add(new string[] { "Time64kB", "TEST4" });
+            foreach (ResearchModel single in toWrite)
+            {
+                output.Add(new string[] { single.DomainName,single.IPAdrress,single.Latitude,single.Longitude,single.DistanceTo,single.TTL,single.Time8B,single.Time64kB });
+            }
+
+            int length = output.Count;
+
+            using (System.IO.TextWriter writer = File.CreateText(filePath))
+            {
+                for (int index = 0; index < length; index++)
+                {
+                    writer.WriteLine(string.Join(delimter, output[index]));
+                }
+            }
         }
     }
 }
