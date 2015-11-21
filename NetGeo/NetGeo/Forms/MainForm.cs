@@ -8,6 +8,8 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CsvHelper;
+using System.IO;
 
 namespace NetGeo
 {
@@ -16,12 +18,18 @@ namespace NetGeo
         GeoApiResponse domainLeft;
         GeoApiResponse domainRight;
         private static String SUCCESS = "success";
+        private OpenFileDialog ofd;
+        private CsvReader csv;
+        private List<CsvStructure> csvRecords;
+
 
         public Form1()
         {
             InitializeComponent();
             domainLeft = ConnectionUtils.GetInstance().UserDetailsFromGeoApi();
             InitLeftValues(domainLeft);
+            ofd = new OpenFileDialog();
+            ofd.Filter = "CSV files (*.csv) | *.csv;";
         }
 
         private void InitLeftValues(GeoApiResponse geoApiResponse)
@@ -75,7 +83,7 @@ namespace NetGeo
         private void bCheckR_Click(object sender, EventArgs e)
         {
             domainRight = ConnectionUtils.GetInstance().HostDetailsFromGeoApi(tbIPR.Text);
-            InitRightValues(domainRight);           
+            InitRightValues(domainRight);
         }
 
         private void FillDistanceBetweenDomains()
@@ -100,6 +108,28 @@ namespace NetGeo
                 tbRTTR.Text = ConnectionUtils.GetInstance().PingHost(IPAddress.Parse(geoApiResponse.query)).RoundtripTime + "";
                 tbDistanceIPR.Text = ConnectionUtils.GetInstance().PerformPathping(IPAddress.Parse(geoApiResponse.query)).Length + "";
             }
+        }
+
+        private void bLoadFile_Click(object sender, EventArgs e)
+        {
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                tbFileName.Text = ofd.SafeFileName;
+                tbFilePath.Text = ofd.FileName;
+                //Status juz po parsowaniu csv
+                MessageBox.Show("Plik wczytano pomyślnie!");
+                ReadCSV(ofd.FileName);
+            }
+            else
+                //ew po nieudanym parsowaniu csv
+                MessageBox.Show("Nie wybrano pliku!!");
+        }
+
+        private void ReadCSV(string inCsvPath)
+        {
+            StreamReader reader = new StreamReader(inCsvPath);
+            csv = new CsvReader(reader);
+            csvRecords = csv.GetRecords<CsvStructure>().ToList();
         }
     }
 }

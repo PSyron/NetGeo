@@ -31,6 +31,8 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.tbDistanceIPR = new System.Windows.Forms.TextBox();
+            this.tbRTTR = new System.Windows.Forms.TextBox();
             this.lDistanceIP = new System.Windows.Forms.Label();
             this.tbDistanceIPL = new System.Windows.Forms.TextBox();
             this.lRTT = new System.Windows.Forms.Label();
@@ -77,12 +79,16 @@
             this.tbOrganizationNameL = new System.Windows.Forms.TextBox();
             this.tbAsNumberL = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.tbRTTR = new System.Windows.Forms.TextBox();
-            this.tbDistanceIPR = new System.Windows.Forms.TextBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.tbFilePath = new System.Windows.Forms.TextBox();
+            this.bLoadFile = new System.Windows.Forms.Button();
+            this.tbFileName = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.gbParameters.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -157,6 +163,24 @@
             this.groupBox1.TabIndex = 36;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Wyniki";
+            // 
+            // tbDistanceIPR
+            // 
+            this.tbDistanceIPR.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.tbDistanceIPR.Location = new System.Drawing.Point(362, 88);
+            this.tbDistanceIPR.Name = "tbDistanceIPR";
+            this.tbDistanceIPR.ReadOnly = true;
+            this.tbDistanceIPR.Size = new System.Drawing.Size(160, 20);
+            this.tbDistanceIPR.TabIndex = 29;
+            // 
+            // tbRTTR
+            // 
+            this.tbRTTR.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.tbRTTR.Location = new System.Drawing.Point(362, 56);
+            this.tbRTTR.Name = "tbRTTR";
+            this.tbRTTR.ReadOnly = true;
+            this.tbRTTR.Size = new System.Drawing.Size(160, 20);
+            this.tbRTTR.TabIndex = 28;
             // 
             // lDistanceIP
             // 
@@ -542,6 +566,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.groupBox2);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -550,23 +575,47 @@
             this.tabPage2.Text = "Badania";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // tbRTTR
+            // groupBox2
             // 
-            this.tbRTTR.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.tbRTTR.Location = new System.Drawing.Point(362, 56);
-            this.tbRTTR.Name = "tbRTTR";
-            this.tbRTTR.ReadOnly = true;
-            this.tbRTTR.Size = new System.Drawing.Size(160, 20);
-            this.tbRTTR.TabIndex = 28;
+            this.groupBox2.BackColor = System.Drawing.Color.Transparent;
+            this.groupBox2.Controls.Add(this.tbFilePath);
+            this.groupBox2.Controls.Add(this.bLoadFile);
+            this.groupBox2.Controls.Add(this.tbFileName);
+            this.groupBox2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.groupBox2.Location = new System.Drawing.Point(7, 16);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(599, 95);
+            this.groupBox2.TabIndex = 25;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Wczytywanie pliku do badań [csv]";
             // 
-            // tbDistanceIPR
+            // tbFilePath
             // 
-            this.tbDistanceIPR.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.tbDistanceIPR.Location = new System.Drawing.Point(362, 88);
-            this.tbDistanceIPR.Name = "tbDistanceIPR";
-            this.tbDistanceIPR.ReadOnly = true;
-            this.tbDistanceIPR.Size = new System.Drawing.Size(160, 20);
-            this.tbDistanceIPR.TabIndex = 29;
+            this.tbFilePath.Enabled = false;
+            this.tbFilePath.Location = new System.Drawing.Point(6, 58);
+            this.tbFilePath.Name = "tbFilePath";
+            this.tbFilePath.Size = new System.Drawing.Size(577, 20);
+            this.tbFilePath.TabIndex = 27;
+            this.tbFilePath.Text = "ścieżka do pliku";
+            // 
+            // bLoadFile
+            // 
+            this.bLoadFile.Location = new System.Drawing.Point(6, 31);
+            this.bLoadFile.Name = "bLoadFile";
+            this.bLoadFile.Size = new System.Drawing.Size(129, 21);
+            this.bLoadFile.TabIndex = 26;
+            this.bLoadFile.Text = "Wczytaj plik";
+            this.bLoadFile.UseVisualStyleBackColor = true;
+            this.bLoadFile.Click += new System.EventHandler(this.bLoadFile_Click);
+            // 
+            // tbFileName
+            // 
+            this.tbFileName.Enabled = false;
+            this.tbFileName.Location = new System.Drawing.Point(141, 31);
+            this.tbFileName.Name = "tbFileName";
+            this.tbFileName.Size = new System.Drawing.Size(442, 20);
+            this.tbFileName.TabIndex = 25;
+            this.tbFileName.Text = "nazwa pliku";
             // 
             // Form1
             // 
@@ -585,6 +634,9 @@
             this.groupBox1.PerformLayout();
             this.gbParameters.ResumeLayout(false);
             this.gbParameters.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -653,6 +705,10 @@
         private System.Windows.Forms.TextBox tbDistanceGeo;
         private System.Windows.Forms.TextBox tbDistanceIPR;
         private System.Windows.Forms.TextBox tbRTTR;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.TextBox tbFilePath;
+        private System.Windows.Forms.Button bLoadFile;
+        private System.Windows.Forms.TextBox tbFileName;
     }
 }
 
