@@ -89,6 +89,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <None Include="top500.domains.01.14.csv" />
+    <None Include="world-universities.csv" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
