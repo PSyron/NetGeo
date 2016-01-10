@@ -8,8 +8,11 @@ namespace NetGeo
 {
     class CsvStructure
     {
-        public string Short { get; set; }
-        public string Name { get; set; }
+        public string Rank { get; set; }
         public string URL { get; set; }
+        public string LinkingRootDomains { get; set; }
+        public string ExternalLinks { get; set; }
+        public string mozRank { get; set; }
+        public string mozTrust { get; set; }
     }
 }
