@@ -21,7 +21,7 @@ namespace NetGeo
         private static String SUCCESS = "success";
         private OpenFileDialog ofd;
         private CsvReader csv;
-        private List<CsvStructure> csvRecords;
+        private List<ResearchModel> csvRecords;
 
 
         public Form1()
@@ -130,8 +130,8 @@ namespace NetGeo
         {
             StreamReader reader = new StreamReader(inCsvPath);
             csv = new CsvReader(reader);
-            csvRecords = csv.GetRecords<CsvStructure>().ToList();
-            MakeResearch(csvRecords);
+            csvRecords = csv.GetRecords<ResearchModel>().ToList();
+            MakeResearch2(csvRecords);
         }
 
 
@@ -156,14 +156,16 @@ namespace NetGeo
                 {
                     //This will be same for all 10 results
                     temp = new ResearchModel();
-                    temp.IPAdrress = geoResponse.query;
+                    temp.IPAddress = geoResponse.query;
                     temp.DomainName = record.URL;
                     temp.Latitude = geoResponse.lat.ToString();
                     temp.Longitude = geoResponse.lon.ToString();
                     temp.DistanceTo = utils.GetDistanceBetweenGeographicPoints(userDetails.lat, userDetails.lon, geoResponse.lat, geoResponse.lon).ToString();
-                    try {
+                    try
+                    {
                         ttl = utils.PerformPathping(IPAddress.Parse(geoResponse.query));
-                    }catch(System.FormatException e)
+                    }
+                    catch (System.FormatException e)
                     {
                         break;
                     }
@@ -185,13 +187,110 @@ namespace NetGeo
                             temp.Time64kB = biggerReply.RoundtripTime.ToString();
                         else
                             temp.Time64kB = "-1";
-                        
+
                         reasearchResult.Add(temp);
                     }
                 }
 
             }
             writeToFile(reasearchResult);
+        }
+
+        private void MakeResearch2(List<ResearchModel> list)
+        {
+            List<ResearchModel> list1 = checkPing(list);
+            writeToFile(list1);
+            //    List<ResearchModel> list2 = checkPing(list1);
+            //  writeToFile(list2);
+        }
+
+        private List<ResearchModel> checkInGeo(List<CsvStructure> list)
+        {
+            GeoApiResponse geoResponse;
+            ResearchModel temp = new ResearchModel();
+            GeoApiResponse userDetails = ConnectionUtils.GetInstance().UserDetailsFromGeoApi();
+            List<ResearchModel> reasearchResult = new List<ResearchModel>();
+            int iterator = 1;
+            foreach (CsvStructure record in list)
+            {
+                System.Threading.Thread.Sleep(1000);
+                //First find domain IP address
+                geoResponse = ConnectionUtils.GetInstance().HostDetailsFromGeoApi(record.URL);
+                Console.WriteLine(iterator++ + " "+ record.URL+ " " +geoResponse );
+                if (geoResponse != null)
+                {
+                    temp = new ResearchModel();
+                    temp.IPAddress = geoResponse.query;
+                    temp.DomainName = record.URL;
+                    temp.Latitude = geoResponse.lat.ToString();
+                    temp.Longitude = geoResponse.lon.ToString();
+                    temp.DistanceTo = ConnectionUtils.GetInstance().GetDistanceBetweenGeographicPoints(userDetails.lat, userDetails.lon, geoResponse.lat, geoResponse.lon).ToString();
+
+                    reasearchResult.Add(temp);
+                }
+            }
+            return reasearchResult;
+        }
+
+        private List<ResearchModel> checkPing(List<ResearchModel> toCheck)
+        {
+            PingReply smallReply;
+            PingReply biggerReply;
+            List<ResearchModel> finalList = new List<ResearchModel>();
+            ResearchModel temp = new ResearchModel();
+            PingReply[] ttl;
+            foreach (ResearchModel record in toCheck)
+            {
+                temp = record;
+                if (false) // 8byte and ttl
+                {
+                    try
+                    {
+                        ttl = ConnectionUtils.GetInstance().PerformPathping(IPAddress.Parse(record.IPAddress));
+                    }
+                    catch (System.FormatException e)
+                    {
+                        continue;
+                    }
+                    if (ttl == null)
+                        continue;
+                    else
+                    {
+                        temp.TTL = ttl.Length.ToString();
+                    }
+
+                    smallReply = ConnectionUtils.GetInstance().PingHost(IPAddress.Parse(record.IPAddress), true);
+                    if (smallReply != null)
+                        temp.Time8B = smallReply.RoundtripTime.ToString();
+                    else
+                        continue;
+                }
+                if (false) // 1 kB
+                {
+                    biggerReply = ConnectionUtils.GetInstance().PingHost(IPAddress.Parse(record.IPAddress), false);
+                    if (biggerReply != null)
+                        temp.Time64kB = biggerReply.RoundtripTime.ToString();
+                    else
+                        continue;
+                }
+                if (true)
+                {
+                    long pingTotal = 0;
+                    int howManyMeasures = 0;
+                    for (int i = 0; i < 10; i++)
+                    {
+                        smallReply = ConnectionUtils.GetInstance().PingHost(IPAddress.Parse(record.IPAddress), false);
+                        if (smallReply != null)
+                        {
+                            howManyMeasures++;
+                            pingTotal += smallReply.RoundtripTime;
+                        }
+                    }
+                    temp.Time64kB = (pingTotal / howManyMeasures).ToString();
+                }
+                finalList.Add(temp);
+            }
+            return finalList;
         }
 
         private void writeToFile(List<ResearchModel> toWrite)
@@ -206,7 +305,7 @@ namespace NetGeo
             string delimter = ";";
             List<string[]> output = new List<string[]>();
             output.Add(new string[] { "DomainName", "IPAddress", "Latitude", "Longitude", "DistanceTo", "TTL", "Time8B", "Time64kB", });
-        
+
             //flexible part ... add as many object as you want based on your app logic
             //output.Add(new string[] { "DomainName", temp });
             //output.Add(new string[] { "IPAddress", "TEST4" });
@@ -218,7 +317,7 @@ namespace NetGeo
             //output.Add(new string[] { "Time64kB", "TEST4" });
             foreach (ResearchModel single in toWrite)
             {
-                output.Add(new string[] { single.DomainName,single.IPAdrress,single.Latitude,single.Longitude,single.DistanceTo,single.TTL,single.Time8B,single.Time64kB });
+                output.Add(new string[] { single.DomainName, single.IPAddress, single.Latitude, single.Longitude, single.DistanceTo, single.TTL, single.Time8B, single.Time64kB });
             }
 
             int length = output.Count;

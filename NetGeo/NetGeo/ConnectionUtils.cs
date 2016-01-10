@@ -41,9 +41,11 @@ namespace NetGeo
             PingReply prResult;
             for (int iC1 = 1; iC1 < iHopcount; iC1++)
             {
-                try {
+                try
+                {
                     prResult = myPing.Send(ipaTarget, iTimeout, new byte[10], new PingOptions(iC1, false)); //ttl zwiekszany
-                } catch (PingException e)
+                }
+                catch (PingException e)
                 {
                     return null;
                 }
@@ -65,44 +67,41 @@ namespace NetGeo
         //posiada RTT & IPStatus
         public PingReply PingHost(IPAddress host, bool minimumBuffer = true)
         {
-            int iTimeout = 500;
-            int iTTL = 20;
+            int iTimeout = 2000;
+            int iTTL = 30;
             Ping pingSender = new Ping();
             PingReply reply = null;
             PingOptions options = new PingOptions(iTTL, true);
             //options.DontFragment = true;
 
             // Create a buffer of 32 bytes of data to be transmitted.
-            string data;
-            if (minimumBuffer)
+            //string data = "aaaaaaaa";//8 bytes
+            byte[] buffer = new byte[8];
+            if (!minimumBuffer)
             {
-                data = "aaaaaaaa";//8 bytes
+                buffer = new byte[1024];
+                //      for (int i = 0; i < 10; i++)//data 8kB
+                //         data += data;
             }
-            else
-            {
-                //512 bytes
-                data = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-                for (int i = 0; i < 8; i++)//data 64kB
-                    data += data;
-            }
-            byte[] buffer = Encoding.ASCII.GetBytes(data);
+            //    byte[] buffer = Encoding.ASCII.GetBytes(data);
+
             try
             {
                 reply = pingSender.Send(host, iTimeout, buffer, options);
                 if (reply.Status == IPStatus.Success)
                 {
-                    //Ping was successful
+                    return reply;
                 }
                 else
                 {
-                    //Ping failed
+                    return null;
                 }
             }
             catch (Exception ex)
             {
+                return null;
                 //MOSTLY HOST NOT FOUND
             }
-            return reply;
         }
 
         public GeoApiResponse UserDetailsFromGeoApi()
@@ -113,10 +112,18 @@ namespace NetGeo
         public GeoApiResponse HostDetailsFromGeoApi(string hostAddress)
         {
             WebClient c = new WebClient();
-            var data = c.DownloadString(DOMAIN + hostAddress);
-            //Console.WriteLine(data);
-            GeoApiResponse temp = JsonConvert.DeserializeObject<GeoApiResponse>(data);
-            Console.WriteLine(temp.query + "  " + temp.lat + "  " + temp.lon);
+            GeoApiResponse temp = null;
+            try
+            {
+                var data = c.DownloadString(DOMAIN + hostAddress);
+                //Console.WriteLine(data);
+                temp = JsonConvert.DeserializeObject<GeoApiResponse>(data);
+                Console.WriteLine(temp.query + "  " + temp.lat + "  " + temp.lon);
+            }
+            catch (Exception e)
+            {
+
+            }
             return temp;
             //JObject o = JObject.Parse(data);
             //Console.WriteLine("Name: " + o["name"]);
